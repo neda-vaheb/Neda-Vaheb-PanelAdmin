@@ -1,4 +1,4 @@
-import RegisterForm from '../componets/Templates/registerForm'
+import RegisterForm from "../componets/Templates/RegisterForm"
 
 function register() {
   return (

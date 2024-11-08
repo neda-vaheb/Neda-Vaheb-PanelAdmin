@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import { setCookie } from "../utiles/cookie";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { login } from "../services/auth";
+import { useMutation } from "@tanstack/react-query";
 
 
 
@@ -15,7 +17,7 @@ function LoginForm() {
     userName: "",
     password: "",
   });
-//   const { mutate, data, error } = useMutation(login);
+  const { mutate, data, error } = useMutation(login);
 
   const changeHandler = (event) => {
     event.preventDefault();
@@ -25,12 +27,12 @@ function LoginForm() {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const { userName, password } = loginForm;
-    if (!userName || !password) {
+    const { username, password } = loginForm;
+    if (!username || !password) {
       return toast.error("لطفا تمامی فیلد ها را به درستی وارد نمایید");
     }
 
-    // mutate(userName, password);
+    mutate({username, password});
 
     if (data) {
       toast.success("ورود با موفقیت انجام شد");
@@ -68,7 +70,7 @@ function LoginForm() {
         </div>
         <div className={styles.formButton}>
           <button type="submit"> ورود</button>
-          <Link href="/">ایجاد حساب کاربری؟</Link>
+          <Link href="/register">ایجاد حساب کاربری؟</Link>
         </div>
       </form>
     </>

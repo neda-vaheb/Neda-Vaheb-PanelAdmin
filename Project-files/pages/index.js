@@ -1,7 +1,15 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { getCookie } from '../componets/utiles/cookie';
 
 
 export default function Home() {
+  const router =useRouter();
+  const token = getCookie("token");
+  if(token){return router.push("/products")}
+  else{
+    router.push("/login")
+  }
   return (
     <>
       <Head>

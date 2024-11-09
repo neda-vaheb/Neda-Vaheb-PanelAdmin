@@ -8,16 +8,23 @@ import toast from "react-hot-toast";
 import Link from "next/link";
 import { login } from "../services/auth";
 import { useMutation } from "@tanstack/react-query";
+import api from "../config/api";
 
 
 
 function LoginForm() {
     const router =useRouter();
   const [loginForm, setLoginForm] = useState({
-    userName: "",
+    username: "",
     password: "",
   });
-  const { mutate, data, error } = useMutation(login);
+  const mutationFn=({username , password})=>{
+    return api.post("http://localhost:3000/auth/login", {
+      username,
+      password,
+    });
+  }
+  const { mutate, data, error } = useMutation({mutationFn});
 
   const changeHandler = (event) => {
     event.preventDefault();
@@ -32,16 +39,23 @@ function LoginForm() {
       return toast.error("لطفا تمامی فیلد ها را به درستی وارد نمایید");
     }
 
-    mutate({username, password});
+    mutate({username, password},{
+      onSuccess:(data)=>{
+        toast.success("ورود با موفقیت انجام شد");
+        setCookie("token", data.data?.token);
+        router.push("/")
+      },
+      onError:(error)=>{
 
-    if (data) {
-      toast.success("ورود با موفقیت انجام شد");
-      setCookie("token", data.data?.token);
-      router.push("/")
-    }
-    if (error) {
       toast.error("خطایی پیش آمده");
-    }
+      console.log(error)
+
+      }
+
+    });
+
+  
+   
   };
   return (
     <>
@@ -54,8 +68,8 @@ function LoginForm() {
         </div>
         <div className={styles.inputs}>
           <input
-            value={loginForm.userName}
-            name="userName"
+            value={loginForm.username}
+            name="username"
             type="text"
             placeholder="نام کاربری"
             onChange={changeHandler}

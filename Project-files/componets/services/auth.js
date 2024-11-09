@@ -1,9 +1,9 @@
 import axios from "axios";
-
-const register = ({username, password}) => {
+import api from "../config/api"
+const register = (data) => {
   return axios.post("http://localhost:3000/auth/register", {
-    username,
-    password,
+    username:`${data.username}`,
+    password:`${data.password}`,
   });
 };
 const login = ({username, password}) => {

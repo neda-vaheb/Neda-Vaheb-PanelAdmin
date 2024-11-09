@@ -7,6 +7,7 @@ import { register } from "../services/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import axios from "axios";
 
 function RegisterForm() {
   const [registerForm, setregisterForm] = useState({
@@ -14,17 +15,14 @@ function RegisterForm() {
     password: "",
     comfirmPassword: "",
   });
-  const router = useRouter();
-  const { mutate ,data } = useMutation(register)
-  // const { mutate } = useMutation(register, {
-  //   onSuccess: () => {
-  //     toast.success("ثبت نام با موفقیت انجام شد");
-  //     router.push("/login"); // هدایت به صفحه ورود
-  //   },
-  //   onError: (error) => {
-  //     toast.error(error.message || "خطا در ثبت نام");
-  //   }
-  // }); 
+  const mutationFn = (data)=>{
+    return axios.post("http://localhost:3000/auth/register", {
+      username:`${data.username}`,
+      password:`${data.password}`,
+    });
+  } 
+  const { mutate ,data } = useMutation({mutationFn})
+ const router = useRouter();
   const changeHandler = (event) => {
     event.preventDefault();
 
@@ -34,17 +32,23 @@ function RegisterForm() {
 
   const submitHandler = async (event) => { 
     event.preventDefault(); 
-    const { username, password, confirmPassword } = registerForm; 
-
-    if (!username || !password || !confirmPassword) { 
+    const { username, password, comfirmPassword } = registerForm; 
+    
+    if (!username || !password || !comfirmPassword) { 
       return toast.error("لطفا تمامی فیلد ها را به درستی وارد نمایید"); 
     } 
-    if (password !== confirmPassword) { 
+    if (password !== comfirmPassword) { 
       return toast.error("تکرار کلمه عبور صحیح نمی باشد"); 
     } 
     
-    mutate({ username, password }); 
-    console.log(data);
+  mutate(registerForm,{
+    onSuccess:(data)=>{
+      toast.success("ثبت نام با موفقیت انجام شد")
+      router.push("/login")
+    },
+    onError:(error)=>toast.error("مشکلی پیش آمده")
+  }); 
+  console.log(data)
   }; 
 
   return (

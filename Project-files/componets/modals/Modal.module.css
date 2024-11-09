@@ -1,0 +1,103 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container p {
+  text-align: center;
+  color: #282828;
+  font-size: 20px;
+}
+.form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 460px;
+  height: auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 6px;
+  gap: 15px;
+}
+.form > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 10px 0;
+  align-items: flex-start;
+}
+.form > div input {
+  border: none;
+  background-color: #dfdfdf;
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 7px;
+  outline: none;
+}
+.form > div label {
+  margin-bottom: 8px;
+}
+.form > div input:focus {
+  outline: 1px solid #55a3f0;
+}
+.editButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+.editButtons > button {
+  width: 50%;
+  border: none;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #dfdfdf;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+.editButtons > button:hover {
+  opacity: 0.5;
+}
+.editButtons > button:first-child {
+  background-color: #55a3f0;
+  color: white;
+}
+.closeImage {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.closeImage img {
+  width: 96px;
+}
+.deleteButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+.deleteButtons > button {
+  width: 50%;
+  border: none;
+  height: 45px;
+  border-radius: 10px;
+  background-color: #dfdfdf;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+.deleteButtons > button:hover {
+  opacity: 0.5;
+}
+.deleteButtons > button:first-child {
+  background-color: #f43f5e;
+  color: white;
+}

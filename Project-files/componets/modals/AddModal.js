@@ -1,9 +1,10 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import styles from "./Modal.module.css";
 import { postProduct } from "../services/products";
+import api from "../config/api";
 
 function AddModal({ setIsADD }) {
   const [product, setProduct] = useState({
@@ -12,7 +13,17 @@ function AddModal({ setIsADD }) {
     quantity: "",
     price: "",
   });
-  const { mutate } = useMutation({postProduct});
+const mutationFn = (data)=>{
+  
+    const { name, price, quantity } = data;
+    return api.post("http://localhost:3000/products", {
+      name: `${name}`,
+      price: price,
+      quantity: quantity,
+    });
+ 
+}
+  const { mutate } = useMutation({mutationFn});
   const changeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -27,7 +38,15 @@ function AddModal({ setIsADD }) {
       return;
     }
 
-    mutate(product);
+    mutate(product , {
+      onSuccess:(data)=>{
+        toast.success("محصول با موفقیت اصافه شد");
+        
+      },
+      onError:(error)=>{
+        toast.error("مشکلی پیش آمده")
+      }
+    });
     setIsADD(false);
   };
   return (

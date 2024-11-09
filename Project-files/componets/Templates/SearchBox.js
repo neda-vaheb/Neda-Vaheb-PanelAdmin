@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import styles from "./ProductPage.module.css";
 
 function SearchBox({ data, setProducts }) {
+  console.log(data)
   const [search, setSearch] = useState("");
   useEffect(() => {
     if (data) {

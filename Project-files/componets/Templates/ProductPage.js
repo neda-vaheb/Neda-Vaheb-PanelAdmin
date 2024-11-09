@@ -10,7 +10,6 @@ import AddModal from "../modals/AddModal";
 import SearchBox from "./SearchBox";
 
 function ProductPage({Allproducts}) {
-  const [page, setPage] = useState(1);
 
   const [products, setProducts] = useState([]);
   const [isAdd, setIsAdd] = useState(false);
@@ -20,13 +19,7 @@ function ProductPage({Allproducts}) {
       setProducts(Allproducts.data);
     }
   }, [Allproducts.data]);
-//   if (error) {
-//     return toast.error("مشکلی پیش آمده");
-//   }
 
-//   if (isPending) {
-//     return <Loader />;
-//   }
   const addHandler = () => {
     setIsAdd(true);
   };
@@ -61,6 +54,8 @@ function ProductPage({Allproducts}) {
                   <ProductCard
                     key={product.id}
                     product={product}
+                    products={products}
+                    setProducts={setProducts}
                  
                   />
                 ))
@@ -74,21 +69,7 @@ function ProductPage({Allproducts}) {
             </tbody>
           </table>
         </div>
-        <div className={styles.pagination}>
-          <button
-            className={page === 2 ? styles.disactive : null}
-            onClick={() => setPage((page) => page + 1)}
-          >
-            بعدی
-          </button>
-          {page}
-          <button
-            className={page === 1 ? styles.disactive : null}
-            onClick={() => setPage((page) => page - 1)}
-          >
-            قبلی
-          </button>
-        </div>
+      
       </div>
       {isAdd && <AddModal setIsADD={setIsAdd} setProducts={setProducts} />}
     </>

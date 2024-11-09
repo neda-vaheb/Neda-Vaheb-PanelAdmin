@@ -1,7 +1,6 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
-// import PropTypes from "prop-types";
 
 import styles from "./ProductPage.module.css";
 import EditModal from "../modals/EditModal";
@@ -11,16 +10,9 @@ import { deleteProduct, putProduct } from "../services/products";
 function ProductCard({ product, products, setProducts }) {
   const [isEdit, setIsEdit] = useState(false);
   const [isdelete, setIsDelete] = useState(false);
-  const queryClient = useQueryClient();
 
-  // const { mutate } = useMutation(deleteProduct, {
-  //   onSuccess: () => queryClient.invalidateQueries("All-Products"),
-  // });
-
-  // const { mutate: editMutate } = useMutation(putProduct, {
-  //   onSuccess: () => queryClient.invalidateQueries("All-Products"),
-  // });
-
+  const { mutate } = useMutation({mutationFn:deleteProduct})
+  const { mutate: editMutate } = useMutation({mutationFn:putProduct})
   const [editProduct, setEditProduct] = useState({
     id: "",
     name: "",
@@ -63,7 +55,7 @@ function ProductCard({ product, products, setProducts }) {
         </td>
         <td>
           <div className={styles.cell}>
-            {product.price.toLocaleString()} تومان
+            {product.price} تومان
           </div>
         </td>
         <td>

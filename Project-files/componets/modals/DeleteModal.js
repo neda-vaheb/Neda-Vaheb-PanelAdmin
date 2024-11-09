@@ -4,7 +4,7 @@ function DeleteModal({ setIsDelete, finalDeleteHandler, product }) {
     <div className={styles.container}>
       <form className={styles.form}>
         <div className={styles.closeImage}>
-          <img src="/Close.png" />
+          <img src="/images/Close.png" />
         </div>
         <div>
           <p>آیا از حذف این محصول مطمئن هستید؟</p>

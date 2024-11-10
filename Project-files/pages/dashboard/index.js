@@ -11,7 +11,7 @@ function products({ Allproducts }) {
 export default products;
 
 export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/products?limit=50`);
+  const res = await fetch("http://localhost:3000/products?limit=50");
   const data = await res.json();
   return {
     props: { Allproducts: data },

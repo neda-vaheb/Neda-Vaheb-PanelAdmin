@@ -13,8 +13,8 @@ function RegisterForm() {
     password: "",
     comfirmPassword: "",
   });
-  
-  const { mutate, data } = useMutation({ mutationFn :register});
+
+  const { mutate, data } = useMutation({ mutationFn: register });
   const router = useRouter();
   const changeHandler = (event) => {
     event.preventDefault();

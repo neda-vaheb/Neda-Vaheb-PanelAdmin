@@ -4,28 +4,25 @@ import { useEffect, useState } from "react";
 
 import styles from "./ProductPage.module.css";
 
-function SearchBox({ data, setProducts }) {
+function SearchBox({setProducts }) {
   const [search, setSearch] = useState("");
   useEffect(() => {
-const fetchData = async()=>{
-const res = await fetch("http://localhost:3000/products");
-const data = await res.json();
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:3000/products");
+      const data = await res.json();
 
-    if (data?.data) {
-      if (search) {
-        const filteredProducts = data?.data.filter((product) =>
-          product.name.toLowerCase().includes(search.toLowerCase())
-        );
-        setProducts(filteredProducts);
-      } else{
-        return setProducts(data?.data)
+      if (data?.data) {
+        if (search) {
+          const filteredProducts = data?.data.filter((product) =>
+            product.name.toLowerCase().includes(search.toLowerCase())
+          );
+          setProducts(filteredProducts);
+        } else {
+          return setProducts(data?.data);
+        }
       }
-    }
-}
-fetchData()
-
-
-
+    };
+    fetchData();
   }, [search]);
   return (
     <div className={styles.searchBox}>

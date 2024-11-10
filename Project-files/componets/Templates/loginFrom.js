@@ -1,30 +1,20 @@
-
-
 import { useState } from "react";
 import styles from "./Register.module.css";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { setCookie } from "../utiles/cookie";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import { login } from "../services/auth";
 import { useMutation } from "@tanstack/react-query";
-import api from "../config/api";
-
-
 
 function LoginForm() {
-    const router =useRouter();
+  const router = useRouter();
   const [loginForm, setLoginForm] = useState({
     username: "",
     password: "",
   });
-  const mutationFn=({username , password})=>{
-    return api.post("http://localhost:3000/auth/login", {
-      username,
-      password,
-    });
-  }
-  const { mutate, data, error } = useMutation({mutationFn});
+
+  const { mutate, data, error } = useMutation({ mutationFn :login });
 
   const changeHandler = (event) => {
     event.preventDefault();
@@ -39,23 +29,20 @@ function LoginForm() {
       return toast.error("لطفا تمامی فیلد ها را به درستی وارد نمایید");
     }
 
-    mutate({username, password},{
-      onSuccess:(data)=>{
-        toast.success("ورود با موفقیت انجام شد");
-        setCookie("token", data.data?.token);
-        router.push("/dashboard")
-      },
-      onError:(error)=>{
-
-      toast.error("خطایی پیش آمده");
-      console.log(error)
-
+    mutate(
+      { username, password },
+      {
+        onSuccess: (data) => {
+          toast.success("ورود با موفقیت انجام شد");
+          setCookie("token", data.data?.token);
+          router.push("/dashboard");
+        },
+        onError: (error) => {
+          toast.error("خطایی پیش آمده");
+          console.log(error);
+        },
       }
-
-    });
-
-  
-   
+    );
   };
   return (
     <>

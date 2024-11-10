@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-
-// import img from ".../assets/images/Union.png";
-import styles from "./Register.module.css";
-import toast from "react-hot-toast";
-import { register } from "../services/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import axios from "axios";
+import toast from "react-hot-toast";
+
+import styles from "./Register.module.css";
+import { register } from "../services/auth";
 
 function RegisterForm() {
   const [registerForm, setregisterForm] = useState({
@@ -15,14 +13,9 @@ function RegisterForm() {
     password: "",
     comfirmPassword: "",
   });
-  const mutationFn = (data)=>{
-    return axios.post("http://localhost:3000/auth/register", {
-      username:`${data.username}`,
-      password:`${data.password}`,
-    });
-  } 
-  const { mutate ,data } = useMutation({mutationFn})
- const router = useRouter();
+  
+  const { mutate, data } = useMutation({ mutationFn :register});
+  const router = useRouter();
   const changeHandler = (event) => {
     event.preventDefault();
 
@@ -30,26 +23,26 @@ function RegisterForm() {
     setregisterForm({ ...registerForm, [name]: event.target.value });
   };
 
-  const submitHandler = async (event) => { 
-    event.preventDefault(); 
-    const { username, password, comfirmPassword } = registerForm; 
-    
-    if (!username || !password || !comfirmPassword) { 
-      return toast.error("لطفا تمامی فیلد ها را به درستی وارد نمایید"); 
-    } 
-    if (password !== comfirmPassword) { 
-      return toast.error("تکرار کلمه عبور صحیح نمی باشد"); 
-    } 
-    
-  mutate(registerForm,{
-    onSuccess:(data)=>{
-      toast.success("ثبت نام با موفقیت انجام شد")
-      router.push("/login")
-    },
-    onError:(error)=>toast.error("مشکلی پیش آمده")
-  }); 
-  console.log(data)
-  }; 
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const { username, password, comfirmPassword } = registerForm;
+
+    if (!username || !password || !comfirmPassword) {
+      return toast.error("لطفا تمامی فیلد ها را به درستی وارد نمایید");
+    }
+    if (password !== comfirmPassword) {
+      return toast.error("تکرار کلمه عبور صحیح نمی باشد");
+    }
+
+    mutate(registerForm, {
+      onSuccess: (data) => {
+        toast.success("ثبت نام با موفقیت انجام شد");
+        router.push("/login");
+      },
+      onError: (error) => toast.error("مشکلی پیش آمده"),
+    });
+    console.log(data);
+  };
 
   return (
     <>

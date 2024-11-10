@@ -7,7 +7,7 @@ function EditModal({ editProduct, setEditProduct, setIsEdit, submitHandler }) {
   };
   return (
     <div className={styles.container}>
-      <form  className={styles.form}>
+      <form className={styles.form}>
         <h3>ویرایش اطلاعات</h3>
         <div>
           <label htmlFor="name">نام کالا</label>

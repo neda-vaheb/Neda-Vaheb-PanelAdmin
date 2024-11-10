@@ -81,7 +81,7 @@
 }
 .deleteButtons {
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
   justify-content: space-between;
   gap: 20px;
 }

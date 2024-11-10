@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 import styles from "./ProductPage.module.css";
@@ -6,39 +5,39 @@ import SearchBox from "./SearchBox";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-
-
-function ProductPage({Allproducts}) {
+function ProductPage({ Allproducts }) {
   const router = useRouter();
-   
+
   const [products, setProducts] = useState([]);
   useEffect(() => {
     if (Allproducts.data) {
       setProducts(Allproducts.data);
     }
   }, [Allproducts.data]);
-const loginHandler = ()=>{
-router.push("/login")
-}
-const registerHandler = ()=>{
-    router.push("/register")
-}
+  const loginHandler = () => {
+    router.push("/login");
+  };
+  const registerHandler = () => {
+    router.push("/register");
+  };
   return (
     <>
       <div className={styles.productContainer}>
         <div className={styles.header}>
-            <div>
-               <h3> Bootostart</h3>
-            </div>
-            <div className={styles.headerButtons}>
-            <button onClick={loginHandler} className={styles.login}>ورود</button>
-            <button onClick={registerHandler} className={styles.register}>ثبت نام</button>
-            </div>
-           
+          <div>
+            <h3> Bootostart</h3>
+          </div>
+          <div className={styles.headerButtons}>
+            <button onClick={loginHandler} className={styles.login}>
+              ورود
+            </button>
+            <button onClick={registerHandler} className={styles.register}>
+              ثبت نام
+            </button>
+          </div>
         </div>
-        <SearchBox data={products} setProducts={setProducts} />
+        <SearchBox setProducts={setProducts} />
 
-        
         <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead className={styles.thead}>
@@ -51,28 +50,24 @@ const registerHandler = ()=>{
               </tr>
             </thead>
             <tbody className={styles.tbody}>
-              { products?.length > 0 ? (
+              {products?.length > 0 ? (
                 products?.map((product) => (
-                    <tr key={product.id}>
-                         <Link href={`products/${product.id}`}>
-                    <td>
-                      <div className={styles.cell}>{product.name}</div>
-                    </td>
-                        </Link> 
+                  <tr key={product.id}>
+                    <Link href={`products/${product.id}`}>
+                      <td>
+                        <div className={styles.cell}>{product.name}</div>
+                      </td>
+                    </Link>
                     <td>
                       <div className={styles.cell}>{product.quantity}</div>
                     </td>
                     <td>
-                      <div className={styles.cell}>
-                        {product.price} تومان
-                      </div>
+                      <div className={styles.cell}>{product.price} تومان</div>
                     </td>
                     <td>
                       <div className={styles.cell}>{product.id}</div>
                     </td>
-                    <td>
-                   
-                    </td>
+                    <td></td>
                   </tr>
                 ))
               ) : (
@@ -85,11 +80,9 @@ const registerHandler = ()=>{
             </tbody>
           </table>
         </div>
-      
       </div>
     </>
   );
 }
 
 export default ProductPage;
-

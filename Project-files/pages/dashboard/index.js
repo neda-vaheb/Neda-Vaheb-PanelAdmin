@@ -1,9 +1,9 @@
-import ProductPage from "../../componets/Templates/ProductPage";
+import Dashboard from "../../componets/Templates/Dashboard";
 
 function products({ Allproducts }) {
   return (
     <>
-      <ProductPage Allproducts={Allproducts} />
+      <Dashboard Allproducts={Allproducts} />
     </>
   );
 }

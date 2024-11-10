@@ -3,21 +3,30 @@ import { RiSearchLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
 
 import styles from "./ProductPage.module.css";
+import api from "../config/api";
 
 function SearchBox({ data, setProducts }) {
-  console.log(data)
   const [search, setSearch] = useState("");
   useEffect(() => {
-    if (data) {
+const fetchData = async()=>{
+const res = await fetch("http://localhost:3000/products");
+const data = await res.json();
+
+    if (data?.data) {
       if (search) {
-        const filteredProducts = data.filter((product) =>
+        const filteredProducts = data?.data.filter((product) =>
           product.name.toLowerCase().includes(search.toLowerCase())
         );
         setProducts(filteredProducts);
-      } else {
-        setProducts(data);
+      } else{
+        return setProducts(data?.data)
       }
     }
+}
+fetchData()
+
+
+
   }, [search, data]);
   return (
     <div className={styles.searchBox}>

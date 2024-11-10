@@ -1,15 +1,18 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { getCookie } from '../componets/utiles/cookie';
 
+import { parse } from 'cookie';
+import { useEffect } from 'react';
 
-export default function Home() {
+export default function Home({token}) {
   const router =useRouter();
-  const token = getCookie("token");
-  if(token){return router.push("/products")}
-  else{
-    router.push("/login")
-  }
+  useEffect(() => {
+    if (token) {
+      router.push('/dashboard');
+    } else {
+      router.push('/products');
+    }
+  }, [router]);
   return (
     <>
       <Head>
@@ -18,8 +21,19 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/amazon.svg" />
       </Head>
-      
-      
+    
+     
     </>
   )
 }
+export async function getServerSideProps({ req }) {
+  const cookies = parse(req.headers.cookie || '');
+  const token = cookies.token || null; 
+
+  return {
+    props: {
+      token,
+    },
+  };
+}
+

@@ -43,7 +43,7 @@ function LoginForm() {
       onSuccess:(data)=>{
         toast.success("ورود با موفقیت انجام شد");
         setCookie("token", data.data?.token);
-        router.push("/")
+        router.push("/dashboard")
       },
       onError:(error)=>{
 
@@ -64,7 +64,7 @@ function LoginForm() {
         <div className={styles.formHeader}>
           <img src="/images/Union.png" />
 
-          <h4>فرم وود</h4>
+          <h4>فرم ورود</h4>
         </div>
         <div className={styles.inputs}>
           <input

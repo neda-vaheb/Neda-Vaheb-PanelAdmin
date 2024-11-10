@@ -1,4 +1,5 @@
-import ProductPage from "../../componets/Templates/ProductPage";
+import { useState } from "react";
+import ProductPage from "../../componets/Templates/Dashboard";
 
 function products({ Allproducts }) {
   return (

@@ -1,43 +1,56 @@
 
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
+// import { useGetAllProducts } from "../services/products";
+import ProductCard from "./ProductCard";
+import Loader from "../modules/Loader";
 import styles from "./ProductPage.module.css";
+import AddModal from "../modals/AddModal";
 import SearchBox from "./SearchBox";
 import { useRouter } from "next/router";
 
-
-
-function ProductPage({Allproducts}) {
-  const router = useRouter();
-   
+function Dashboard({Allproducts}) {
+const router = useRouter()
   const [products, setProducts] = useState([]);
+  const [isAdd, setIsAdd] = useState(false);
+  // Set products when data is loaded
   useEffect(() => {
     if (Allproducts.data) {
       setProducts(Allproducts.data);
     }
   }, [Allproducts.data]);
-const loginHandler = ()=>{
-router.push("/login")
-}
-const registerHandler = ()=>{
-    router.push("/register")
-}
+
+  const addHandler = () => {
+    setIsAdd(true);
+  };
+  const exitHandler =()=>{
+    router.push("products");
+  }
   return (
     <>
       <div className={styles.productContainer}>
-        <div className={styles.header}>
+      <div className={styles.header}>
             <div>
                <h3> Bootostart</h3>
             </div>
             <div className={styles.headerButtons}>
-            <button onClick={loginHandler} className={styles.login}>ورود</button>
-            <button onClick={registerHandler} className={styles.register}>ثبت نام</button>
+            <button onClick={exitHandler} className={styles.login}>خروج</button>
+           
             </div>
            
         </div>
         <SearchBox data={products} setProducts={setProducts} />
 
-        
+        <div className={styles.manageProduct}>
+          <div>
+            <img src="images/setting-3.png" />
+            <span>مدیریت محصول</span>
+          </div>
+          <div>
+            <button onClick={addHandler}>افزودن محصول</button>
+          </div>
+        </div>
         <div className={styles.tableContainer}>
           <table className={styles.table}>
             <thead className={styles.thead}>
@@ -52,25 +65,13 @@ const registerHandler = ()=>{
             <tbody className={styles.tbody}>
               { products?.length > 0 ? (
                 products?.map((product) => (
-                    <tr key={product.id}>
-                    <td>
-                      <div className={styles.cell}>{product.name}</div>
-                    </td>
-                    <td>
-                      <div className={styles.cell}>{product.quantity}</div>
-                    </td>
-                    <td>
-                      <div className={styles.cell}>
-                        {product.price} تومان
-                      </div>
-                    </td>
-                    <td>
-                      <div className={styles.cell}>{product.id}</div>
-                    </td>
-                    <td>
-                   
-                    </td>
-                  </tr>
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    products={products}
+                    setProducts={setProducts}
+                 
+                  />
                 ))
               ) : (
                 <tr>
@@ -84,9 +85,10 @@ const registerHandler = ()=>{
         </div>
       
       </div>
+      {isAdd && <AddModal setIsADD={setIsAdd} setProducts={setProducts} />}
     </>
   );
 }
 
-export default ProductPage;
+export default Dashboard;
 

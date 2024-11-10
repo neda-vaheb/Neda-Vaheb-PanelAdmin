@@ -5,6 +5,36 @@
 .productCard {
   display: flex;
 }
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+}
+.header h3{
+  color: #55a3f0;
+}
+.headerButtons button{
+border: none;
+padding: 10px 25px;
+border-radius: 10px;
+text-align: center;
+cursor: pointer;
+transition: all 0.3s ease-in;
+}
+.headerButtons button:hover{
+opacity: 0.5;
+}
+.login{
+  background-color: #55a3f0;
+  margin-left: 10px;
+  color: white;
+}
+.register{
+  background-color: rgba(189, 189, 189, 0.384);
+
+}
+
 .searchBox {
   display: flex;
   justify-content: flex-start;

@@ -53,10 +53,12 @@ const registerHandler = ()=>{
             <tbody className={styles.tbody}>
               { products?.length > 0 ? (
                 products?.map((product) => (
-                  <Link href={`products/${product.id}`}> <tr key={product.id}>
+                    <tr key={product.id}>
+                         <Link href={`products/${product.id}`}>
                     <td>
                       <div className={styles.cell}>{product.name}</div>
                     </td>
+                        </Link> 
                     <td>
                       <div className={styles.cell}>{product.quantity}</div>
                     </td>
@@ -72,7 +74,6 @@ const registerHandler = ()=>{
                    
                     </td>
                   </tr>
-                  </Link> 
                 ))
               ) : (
                 <tr>

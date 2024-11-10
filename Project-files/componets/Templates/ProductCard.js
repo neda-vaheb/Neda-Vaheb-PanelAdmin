@@ -6,6 +6,7 @@ import styles from "./ProductPage.module.css";
 import EditModal from "../modals/EditModal";
 import DeleteModal from "../modals/DeleteModal";
 import { deleteProduct, putProduct } from "../services/products";
+import Link from "next/link";
 
 function ProductCard({ product, products, setProducts }) {
   const [isEdit, setIsEdit] = useState(false);
@@ -46,10 +47,11 @@ function ProductCard({ product, products, setProducts }) {
 
   return (
     <>
-      <tr key={product.id}>
-        <td>
+     <tr key={product.id}>
+     <Link href={`/dashboard/${product.id}`}> <td>
           <div className={styles.cell}>{product.name}</div>
         </td>
+    </Link> 
         <td>
           <div className={styles.cell}>{product.quantity}</div>
         </td>

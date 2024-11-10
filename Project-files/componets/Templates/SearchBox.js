@@ -3,7 +3,6 @@ import { RiSearchLine } from "react-icons/ri";
 import { useEffect, useState } from "react";
 
 import styles from "./ProductPage.module.css";
-import api from "../config/api";
 
 function SearchBox({ data, setProducts }) {
   const [search, setSearch] = useState("");
@@ -27,7 +26,7 @@ fetchData()
 
 
 
-  }, [search, data]);
+  }, [search]);
   return (
     <div className={styles.searchBox}>
       <RiSearchLine />

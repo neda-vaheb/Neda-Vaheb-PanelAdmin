@@ -1,14 +1,11 @@
 
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-
-// import { useGetAllProducts } from "../services/products";
 import ProductCard from "./ProductCard";
-import Loader from "../modules/Loader";
 import styles from "./ProductPage.module.css";
 import AddModal from "../modals/AddModal";
 import SearchBox from "./SearchBox";
 import { useRouter } from "next/router";
+import { setCookie } from "../utiles/cookie";
 
 function Dashboard({Allproducts}) {
 const router = useRouter()
@@ -26,6 +23,7 @@ const router = useRouter()
   };
   const exitHandler =()=>{
     router.push("products");
+    setCookie("")
   }
   return (
     <>
